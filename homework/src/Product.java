@@ -1,11 +1,9 @@
-import java.math.BigDecimal;
-
 public class Product implements Promotion{
     private String name;
-    private BigDecimal price;
+    private Double price;
     private Double weight;
 
-    public Product(String name, BigDecimal price, double weight) {
+    public Product(String name, Double price, Double weight) {
         this.name = name;
         this.price = price;
         this.weight = weight;
@@ -15,23 +13,21 @@ public class Product implements Promotion{
         return name;
     }
 
-    public BigDecimal getPrice() {
-        return price;
+    public Double getPrice() {
+        return price - getDiscountFee();
     }
-
     public Double getWeight() {
         return weight;
     }
 
-    @Override
-    public BigDecimal getDiscountAmount() {
+    public double getDiscountFee(){
         switch (name) {
             case "grocery":
-                return new BigDecimal("2000");
+                return 2000;
             case "beauty":
-                return new BigDecimal("10000");
+                return 10000;
             default:
-                return BigDecimal.ZERO;  // 할인 금액이 없는 경우
+                return 0;
         }
     }
 }

@@ -1,5 +1,3 @@
-import java.math.BigDecimal;
-
 public class Cart {
     Product[] product;
 
@@ -10,11 +8,11 @@ public class Cart {
     public int calculateDeliveryCharge() {
         int deliveryFees;
 
-        BigDecimal totalPrice = new BigDecimal(0);
-        int totalWeight = 0;
+        double totalPrice = 0;
+        double totalWeight = 0;
 
         for (Product value : product) {
-            totalPrice = totalPrice.add(value.getPrice().subtract(value.getDiscountAmount()));
+            totalPrice = totalPrice + value.getPrice();
             totalWeight += value.getWeight();
         }
 
@@ -26,9 +24,9 @@ public class Cart {
             deliveryFees = 10000;
         }
 
-        if (totalPrice.compareTo(new BigDecimal("30000")) >= 0 && totalPrice.compareTo(new BigDecimal("100000")) < 0) {
+        if ((totalPrice >= 3000)||(totalPrice < 10000)) {
             deliveryFees -= 1000;
-        } else if (totalPrice.compareTo(new BigDecimal("100000")) >= 0) {
+        } else if (totalPrice > 10000) {
             deliveryFees = 0;
         }
 
